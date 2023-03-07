@@ -9,20 +9,36 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
+  NUGET_SOURCE_URL: "https://nuget.pkg.github.com/KaszaLehel/index.json"
+
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
+
+    - name: Restore packages
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+    
+    - name: Pack Project
+      run: dotnet build --no-restore --no-build --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\output
+
+    - name: Push Package
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k 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 -s ${{ env.NUGET_SOURCE_URL }}
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
