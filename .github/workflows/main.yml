@@ -39,7 +39,7 @@ jobs:
       run: dotnet pack --no-restore --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\output
 
     - name: Push Package
-      run: dotnet nuget push *.nupkg -k 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 -s ${{ env.NUGET_SOURCE_URL }}
+      run: dotnet nuget push *.nupkg -s ${{ env.NUGET_SOURCE_URL }} -k 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 
 
     # ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
     # - name: Test
