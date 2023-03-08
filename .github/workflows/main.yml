@@ -42,7 +42,7 @@ jobs:
     #   run: dotnet nuget add source --username KaszaLehel --password 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 --store-password-in-clear-text --name gitnuget https://nuget.pkg.github.com/KaszaLehel/index.json
 
     - name: Push Package
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k ${{ secrets.NUGET_KEY_YML }} -s "https://nuget.pkg.github.com/KaszaLehel/index.json"
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k ${{ secrets.NUGET_KEY_YML }} -s "https://nuget.pkg.github.com/KaszaLehel/index.json" --skip-duplicate
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
     #   run: dotnet test --no-build --verbosity normalcc
     # -s https://nuget.pkg.github.com/[USERNAME]/index.json ${{ secrets.NUGET_SECRET }},  ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg --api-key ${{ secrets.NUGET_SECRET }}
