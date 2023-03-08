@@ -19,6 +19,7 @@ namespace Project
             int osztass = Class1.Per(x, y);
 
             System.Console.WriteLine("Az ertekek: {0}, {1}, {2}, {3}", osszeadas, kivonas, szorzass, osztass);
+            System.Console.WriteLine("A verziot nem tudom.");
         }
     }
 }
