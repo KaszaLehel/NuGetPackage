@@ -44,5 +44,5 @@ jobs:
     - name: Push Package
       run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k ${{ secrets.NUGET_KEY }} -s "https://nuget.pkg.github.com/KaszaLehel/index.json"
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
-    #   run: dotnet test --no-build --verbosity normal
+    #   run: dotnet test --no-build --verbosity normalcc
     # -s https://nuget.pkg.github.com/[USERNAME]/index.json ${{ secrets.NUGET_SECRET }},  ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg --api-key ${{ secrets.NUGET_SECRET }}
