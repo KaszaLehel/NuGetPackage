@@ -42,7 +42,7 @@ jobs:
     #   run: dotnet nuget add source --username KaszaLehel --password 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 --store-password-in-clear-text --name gitnuget https://nuget.pkg.github.com/KaszaLehel/index.json
 
     - name: Install Package
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k "ClearTextPassword" -s "github"
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k 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 -s "github"
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
     #   run: dotnet test --no-build --verbosity normal
     # -s https://nuget.pkg.github.com/[USERNAME]/index.json ${{ secrets.NUGET_SECRET }},  ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg --api-key ${{ secrets.NUGET_SECRET }}
