@@ -39,7 +39,7 @@ jobs:
       run: dotnet pack --no-restore --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\output
 
     - name: Push Package
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k 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 -s https://nuget.pkg.github.com/KaszaLehel/index.json
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k ${{ secrets.NUGET_SECRET }} -s https://nuget.pkg.github.com/KaszaLehel/index.json
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
     #   run: dotnet test --no-build --verbosity normal
     # -s https://nuget.pkg.github.com/[USERNAME]/index.json ${{ secrets.NUGET_SECRET }}
