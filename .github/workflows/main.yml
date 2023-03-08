@@ -38,10 +38,10 @@ jobs:
     - name: Pack Project
       run: dotnet pack --no-restore --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\output
 
-    # - name: Push Package
+    # - name: add Package
     #   run: dotnet nuget add source --username KaszaLehel --password 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 --store-password-in-clear-text --name gitnuget https://nuget.pkg.github.com/KaszaLehel/index.json
 
-    - name: Install Package
+    - name: Push Package
       run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg -k 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 -s "github"
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
     #   run: dotnet test --no-build --verbosity normal
