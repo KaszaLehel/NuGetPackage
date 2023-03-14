@@ -12,6 +12,7 @@ on:
 env:
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
   NUGET_SOURCE_URL: "https://nuget.pkg.github.com/KaszaLehel/index.json"
+  NUGET_VERSION: ${{ steps.semver.outputs.version }}
 
 
 jobs:
@@ -27,6 +28,24 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 5.0.x
+    
+    - name: Read current version number
+      id: version
+      run: echo ::set-output name=current::$(cat version.txt)
+
+    - name: Increment version number
+      id: semver
+      uses: actions/semver@v1
+      with:
+        version: ${{ steps.version.outputs.current }}
+        bump: patch
+
+    - name: Write new version number to .csproj
+      run: |
+        find . -name "*.csproj" -type f -exec sed -i "s/<Version>.*<\/Version>/<Version>${{ steps.semver.outputs.version }}<\/Version>/" {} +
+
+    - name: Write new version number
+      run: echo "${{ steps.semver.outputs.version }}" > version.txt
 
     - name: Restore packages
       run: dotnet restore
@@ -46,3 +65,4 @@ jobs:
     # - name: Test  ${{ env.NUGET_SOURCE_URL }}
     #   run: dotnet test --no-build --verbosity normalcc
     # -s https://nuget.pkg.github.com/[USERNAME]/index.json ${{ secrets.NUGET_SECRET }},  ${{ env.PACKAGE_OUTPUT_DIRECTORY }}**/*.nupkg --api-key ${{ secrets.NUGET_SECRET }}
+
